@@ -85,7 +85,7 @@ GEM
     nio4r (2.2.0)
     nokogiri (1.8.2-x64-mingw32)
       mini_portile2 (~> 2.3.0)
-    pg (0.21.0-x64-mingw32)
+    pg (1.0.0-x64-mingw32)
     public_suffix (3.0.1)
     puma (3.11.2)
     rack (2.0.4)
@@ -184,4 +184,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.4
+   1.16.1
