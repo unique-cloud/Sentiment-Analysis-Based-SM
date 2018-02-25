@@ -185,7 +185,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  bcrypt
+  bcrypt (~> 3.1.11)
   bootstrap-sass
   byebug
   capybara (~> 2.13)

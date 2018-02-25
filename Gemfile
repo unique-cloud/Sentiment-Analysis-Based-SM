@@ -9,7 +9,7 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use Bcrypt to secure password
-gem 'bcrypt'
+gem 'bcrypt', '~> 3.1.11'
 # Use Bootstrap for CSS
 gem 'bootstrap-sass'
 # Use Puma as the app server
