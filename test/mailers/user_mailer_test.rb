@@ -1,13 +1,7 @@
-<<<<<<< HEAD
-  require 'test_helper'
-
-class UserMailerTest < ActionMailer::TestCase
-=======
 require 'test_helper'
 
 class UserMailerTest < ActionMailer::TestCase
 
->>>>>>> password-reset
   test "account_activation" do
     user = users(:michael)
     user.activation_token = User.new_token
@@ -15,14 +9,6 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal "Account activation", mail.subject
     assert_equal [user.email], mail.to
     assert_equal ["noreply@example.com"], mail.from
-<<<<<<< HEAD
-    assert_match user.name,               mail.body.encoded
-    assert_match user.activation_token,   mail.body.encoded
-    assert_match CGI.escape(user.email),  mail.body.encoded
-  end
-
-end
-=======
     assert_match user.name, mail.body.encoded
     assert_match user.activation_token, mail.body.encoded
     assert_match CGI.escape(user.email), mail.body.encoded
@@ -39,4 +25,3 @@ end
     assert_match CGI.escape(user.email), mail.body.encoded
   end
 end
->>>>>>> password-reset
