@@ -40,17 +40,6 @@ class User < ApplicationRecord
   end
 
 
-  private
-
-    def downcase_email
-      self.email = email.downcase
-    end
-
-    def create_activation_digest
-      self.activation_token = User.new_token
-      self.activation_digest = User.digest(activation_token)
-    end
-
   # Activates an account.
   def activate
     update_columns(activated: true, activated_at: Time.zone.now)
@@ -60,7 +49,6 @@ class User < ApplicationRecord
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
   end
-
   private
 
   # Converts email to all lower-case.
