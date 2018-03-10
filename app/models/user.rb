@@ -20,17 +20,17 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
 
-  class << self
-    def digest(string)
-      cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-                 BCrypt::Engine.cost
-      BCrypt::Password.create(string, cost: cost)
-    end
 
-    def new_token
-      SecureRandom.urlsafe_base64
-    end
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+               BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
   end
+
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
 
   def remember
     self.remember_token = User.new_token
@@ -49,7 +49,7 @@ class User < ApplicationRecord
 
   # Activates an account.
   def activate
-    update_columns(activated: true, activated_at: Time.zone.now)
+    update_attributes(activated: true, activated_at: Time.zone.now)
   end
 
   # Sends activation email.
@@ -59,8 +59,7 @@ class User < ApplicationRecord
 
   def create_reset_digest
     self.reset_token = User.new_token
-    update_attribute(:reset_digest, User.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
+    update_attributes(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
   end
 
   def send_password_reset_email
@@ -96,7 +95,7 @@ class User < ApplicationRecord
 
   # Converts email to all lower-case.
   def downcase_email
-    self.email = email.downcase
+    email.downcase!
   end
 
   # Creates and assigns the activation token and digest.
