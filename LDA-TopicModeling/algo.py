@@ -2,8 +2,22 @@ from nltk.tokenize import RegexpTokenizer
 from stop_words import get_stop_words
 from nltk.stem.porter import PorterStemmer
 from gensim import corpora, models
+from flask import Flask, request, jsonify
 import gensim
+import json
 
+app = Flask(__name__)
+
+'''
+# @ signfies a decorator : way to wrap a function and modifying its behaviour
+@app.route('/')
+def index():
+    return '<h2>This is a website</h2>'
+
+@app.route('/profile<username>')
+def profile(username):
+    return '<h2>Welcome %s</h2>' %username
+'''
 tokenizer = RegexpTokenizer(r'\w+')
 
 # create English stop words list
@@ -13,14 +27,10 @@ en_stop = get_stop_words('en')
 p_stemmer = PorterStemmer()
 
 # create sample documents
-doc_a = "Brocolli is good to eat. My brother likes to eat good brocolli, but not my mother."
-doc_b = "My mother spends a lot of time driving my brother around to baseball practice."
-doc_c = "Some health experts suggest that driving may cause increased tension and blood pressure."
-doc_d = "I often feel pressure to perform well at school, but my mother never seems to drive my brother to do better."
-doc_e = "Health professionals say that brocolli is good for your health."
+doc_a = "Brocolli is good to eat. My brother likes to eat good brocolli, but not my mother. My mother spends a lot of time driving my brother around to baseball practice. Some health experts suggest that driving may cause increased tension and blood pressure. I often feel pressure to perform well at school, but my mother never seems to drive my brother to do better.Health professionals say that brocolli is good for your health."
 
 # compile sample documents into a list
-doc_set = [doc_a, doc_b, doc_c, doc_d, doc_e]
+doc_set = [doc_a]
 
 # list for tokenized documents in loop
 texts = []
@@ -47,5 +57,8 @@ dictionary = corpora.Dictionary(texts)
 corpus = [dictionary.doc2bow(text) for text in texts]
 
 # generate LDA model
-ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=2, id2word=dictionary, passes=1000)
-print(ldamodel.print_topics(num_topics=2, num_words=3))
+ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=2, id2word=dictionary, passes=1500)
+print json.dumps(ldamodel.print_topics(num_topics=2, num_words=3))
+
+#if __name__ == "__main__":
+ #   app.run(debug=True)
