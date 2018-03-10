@@ -5,6 +5,7 @@ class MicropostsController < ApplicationController
   def create
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
+      @micropost.analyze
       flash[:success] = "Micropost created!"
       redirect_to root_url
     else
@@ -28,5 +29,10 @@ class MicropostsController < ApplicationController
   def correct_user
     @micropost = current_user.microposts.find_by(id: params[:id])
     redirect_to root_url if @micropost.nil?
+  end
+
+  # Post the post content to the web service
+  def analyze
+    post ENV['ML_WEBSERVICE_URL']
   end
 end
