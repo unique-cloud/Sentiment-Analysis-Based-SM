@@ -22,7 +22,7 @@ class Micropost < ApplicationRecord
   private
 
   def send_to_ml_service(data = {})
-    return unless ENV['ML_WEBSERVICE_URL']
+    return if ENV['ML_WEBSERVICE_URL'].blank?
 
     uri = URI.parse(ENV['ML_WEBSERVICE_URL'])
     header = {'Content-Type': 'text/json'}
