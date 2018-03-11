@@ -1,6 +1,6 @@
 # Users
 User.create!(name: "Example User",
-             email: "example@railstutorial.org",
+             email: "example@example.com",
              password: "foobar",
              password_confirmation: "foobar",
              admin: true,
@@ -9,7 +9,7 @@ User.create!(name: "Example User",
 
 99.times do |n|
   name = Faker::Name.name
-  email = "example-#{n+1}@railstutorial.org"
+  email = "example-#{n+1}@example.com"
   password = "password"
   User.create!(name: name,
                email: email,
@@ -33,3 +33,13 @@ following = users[2..50]
 followers = users[3..40]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
+
+# Tags for microposts
+Micropost.all.each do |micropost|
+  3.times do
+    tag = Tag.new(name: Faker::Lorem.word)
+    if tag.save
+      micropost.tags << tag
+    end
+  end
+end

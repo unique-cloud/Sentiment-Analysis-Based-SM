@@ -1,19 +1,29 @@
 class CombinationsController < ApplicationController
 
   def create
-    micropost = Micropost.find_by(id: combination_params[:micropost_id])
-    if micropost
-      combination_params[:tags].each do |tag|
-        micropost.get_tag(tag)
+    @micropost = Micropost.find_by(id: params[:micropost_id])
+    if @micropost
+      params[:tags].each do |tag|
+        new_tag = Tag.new(name: tag)
+        unless new_tag.save
+          new_tag = Tag.find_by(name: tag)
+        end
+        if new_tag
+          @micropost.combine_tag(new_tag)
+        end
       end
+
+      # Should update tags in micropost, but don't know how to do that. Maybe Ajax?
+      # But how to do that without remote: true? Can't find somewhere to start the Ajax call.
+      # Could use the following line to change the html:
+      # $("#micropost-<%= @micropost.id %>").replaceWith("<%= escape_javascript(render @micropost) %>")
+      # And the following lines to respond to the Ajax:
+      # respond_to do |format|
+      #  format.js {}
+      # end
     end
   end
 
   def destroy
-  end
-
-  # Parse the accepted params
-  def combination_params
-
   end
 end

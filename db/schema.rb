@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180306223657) do
+ActiveRecord::Schema.define(version: 20180311085616) do
+
+  create_table "combinations", force: :cascade do |t|
+    t.integer "micropost_id"
+    t.integer "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["micropost_id", "tag_id"], name: "index_combinations_on_micropost_id_and_tag_id", unique: true
+    t.index ["micropost_id"], name: "index_combinations_on_micropost_id"
+    t.index ["tag_id"], name: "index_combinations_on_tag_id"
+  end
 
   create_table "microposts", force: :cascade do |t|
     t.text "content"
@@ -29,6 +39,12 @@ ActiveRecord::Schema.define(version: 20180306223657) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

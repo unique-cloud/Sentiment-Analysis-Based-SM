@@ -31,8 +31,4 @@ class MicropostsController < ApplicationController
     redirect_to root_url if @micropost.nil?
   end
 
-  # Post the post content to the web service
-  def analyze
-    post ENV['ML_WEBSERVICE_URL']
-  end
 end
