@@ -14,7 +14,9 @@
     <% if current_user?(micropost.user) %>
       <%= link_to "delete", micropost, method: :delete,
                   data: { confirm: "You sure?" } %>
-      <%= link_to "match", matching_path(micropost_id: micropost.id) %>
+      <% if micropost.tags.any? %>
+        <%= link_to "match", matching_path(micropost_id: micropost.id) %>
+      <% end %>
     <% end %>
   </span>
 </li>
