@@ -14,7 +14,7 @@ class MatchingsController < ApplicationController
     author = micropost.user
     users_with_common_tags.delete_if { |k| k.first == author }
 
-    @matching_users = users_with_common_tags.inject(Hash.new([])){ |h,v| h[v.first] = h[v.first] << v.second; h }
+    @matching_users = users_with_common_tags.inject(Hash.new { |h,k| h[k] = []}){ |h,v| h[v[0]] = h[v[0]] << v[1]; h }
     @matching_users = @matching_users.sort_by { |k,v| v.count }.reverse
     # @matching_users = @matching_users.paginate(page: params[:page])
   end
