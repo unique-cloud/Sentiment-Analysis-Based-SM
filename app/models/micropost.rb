@@ -22,18 +22,21 @@ class Micropost < ApplicationRecord
   private
 
   def send_to_ml_service(data = {})
-    return if ENV['ML_WEBSERVICE_URL'].blank?
+    if Rails.env.production?
+      url = ENV['ML_WEBSERVICE_URL']
+    else
+      url = ""
+    end
 
-    uri = URI.parse(ENV['ML_WEBSERVICE_URL'])
-    header = {'Content-Type': 'text/json'}
+    return if url.blank?
+    uri = URI.parse(url)
+    return unless uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
+
+    header = {'Content-Type': 'application/json'}
     body = data
-
-    # Create the HTTP objects
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Post.new(uri.request_uri, header)
     request.body = body.to_json
-
-    # Send the request
     http.request(request)
   end
 end

@@ -1,4 +1,5 @@
 class CombinationsController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
   def create
     @micropost = Micropost.find_by(id: params[:micropost_id])
