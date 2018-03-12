@@ -230,7 +230,7 @@ footer {
 
 /* microposts */
 
-.microposts {
+.microposts, .matching {
   list-style: none;
   padding: 0;
   li {
@@ -241,7 +241,7 @@ footer {
     margin-top: 5em;
     padding-top: 0;
   }
-  .content {
+  .content, .tag {
     display: block;
     margin-left: 60px;
     img {

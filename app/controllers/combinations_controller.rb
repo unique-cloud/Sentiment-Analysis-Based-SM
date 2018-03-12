@@ -5,6 +5,7 @@ class CombinationsController < ApplicationController
     @micropost = Micropost.find_by(id: params[:micropost_id])
     if @micropost
       params[:tags].each do |tag|
+        tag.downcase!
         new_tag = Tag.new(name: tag)
         unless new_tag.save
           new_tag = Tag.find_by(name: tag)

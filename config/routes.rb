@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  get '/matching', to: 'matchings#index'
+  get '/matching/detail', to: 'matchings#show'
+
   resources :users do
     member do
       get :following, :followers

@@ -13,9 +13,9 @@
     </section>
   </aside>
   <div class="col-md-8">
-    <%= render 'follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
+    <%= render 'users/follow_form' if logged_in? %>
+    <% if @total > 0 %>
+      <h3>Microposts (<%= @total %>)</h3>
       <ol class="microposts">
         <%= render @microposts %>
       </ol>
