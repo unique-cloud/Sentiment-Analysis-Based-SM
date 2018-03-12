@@ -13,8 +13,17 @@
 $gray-medium-light: #eaeaea;
 /* universal */
 body {
-  padding-top: 60px;
+  padding-top: 100px;
+  font-family: 'Lora', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cabin', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  margin: 0 0 35px;
+  letter-spacing: 1px;
+}
+
 section {
   overflow: auto;
 }
@@ -136,12 +145,12 @@ footer {
   }
 
   .stats {
-    overflow: auto;
+    float: left;
     margin-top: 0;
     padding: 0;
     a {
       float: left;
-      padding: 0 10px;
+      padding: 10px;
       border-left: 1px solid $gray-lighter;
       color: gray;
       &:first-child {
