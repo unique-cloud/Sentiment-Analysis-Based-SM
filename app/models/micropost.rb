@@ -25,7 +25,7 @@ class Micropost < ApplicationRecord
     if Rails.env.production?
       url = ENV['ML_WEBSERVICE_URL']
     else
-      url = ""
+      url = "https://pmishra.pythonanywhere.com/"
     end
 
     return if url.blank?
@@ -34,9 +34,25 @@ class Micropost < ApplicationRecord
 
     header = {'Content-Type': 'application/json'}
     body = data
-    http = Net::HTTP.new(uri.host, uri.port)
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
     request = Net::HTTP::Post.new(uri.request_uri, header)
     request.body = body.to_json
-    http.request(request)
+    response = https.request(request)
+    return unless response.code == '200'
+    set_tags(JSON.parse(response.body))
   end
+
+    def set_tags(result)
+      names = result['response'].scan(/[a-z]+/)
+      if names.any?
+        names.each do |name|
+          name.downcase!
+          tag = Tag.new(name: name)
+          tag = Tag.find_by(name: name) unless tag.save
+          self.combine_tag(tag) if tag
+        end
+      end
+    end
 end
+
