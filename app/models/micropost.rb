@@ -1,4 +1,6 @@
 class Micropost < ApplicationRecord
+  require 'net/https'
+
   has_many :combinations, dependent: :destroy
   has_many :tags, through: :combinations
   belongs_to :user
