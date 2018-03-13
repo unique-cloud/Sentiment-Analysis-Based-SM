@@ -3,7 +3,7 @@
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   <span class="tag">
     <% micropost.tags.each do |tag| %>
-      <%= "##{tag.name}#" %>&nbsp
+      <%= "##{tag.name}" %>&nbsp
     <% end %>
   </span>
   <span class="content">
