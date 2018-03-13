@@ -34,8 +34,7 @@ class Micropost < ApplicationRecord
 
     header = {'Content-Type': 'application/json'}
     body = data
-    https = Net::HTTP.new(uri.host, uri.port)
-    https.use_ssl = true
+    https = Net::HTTP.new(uri.host, uri.port, use_ssl: true)
     request = Net::HTTP::Post.new(uri.request_uri, header)
     request.body = body.to_json
     response = https.request(request)
