@@ -1,13 +1,15 @@
 <% if logged_in? %>
   <div class="row">
     <aside class="col-md-4">
-      <section class="user_info">
+      <section class="user_info center">
         <%= render 'shared/user_info' %>
       </section>
-      <section class="stats">
+      <br>
+      <section class="stats center">
         <%= render 'shared/stats' %>
       </section>
-      <section class="micropost_form">
+      <section class="center micropost_form">
+        <br>
         <%= render 'shared/micropost_form' %>
       </section>
     </aside>
@@ -17,9 +19,9 @@
     </div>
   </div>
 <% else %>
-<div class="center jumbotron">
+<div class="center">
   <h1>Welcome to the Ocean App</h1>
-
+  <br>
   <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
 </div>
 

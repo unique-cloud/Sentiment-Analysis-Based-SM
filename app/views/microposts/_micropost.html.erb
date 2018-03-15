@@ -3,7 +3,7 @@
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
   <span class="tag">
     <% micropost.tags.each do |tag| %>
-      &nbsp<%= tag.name %>
+      <%= "##{tag.name}" %>&nbsp
     <% end %>
   </span>
   <span class="content">
@@ -14,6 +14,9 @@
     <% if current_user?(micropost.user) %>
       <%= link_to "delete", micropost, method: :delete,
                   data: { confirm: "You sure?" } %>
+      <% if micropost.tags.any? %>
+        <%= link_to "match", matching_path(micropost_id: micropost.id) %>
+      <% end %>
     <% end %>
   </span>
 </li>

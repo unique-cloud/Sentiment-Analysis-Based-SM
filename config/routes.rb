@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  get '/matching', to: 'matchings#index'
+  get '/matching/detail', to: 'matchings#show'
+
   resources :users do
     member do
       get :following, :followers
@@ -18,5 +21,4 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
-  resources :combinations,        only: [:create, :destroy]
 end

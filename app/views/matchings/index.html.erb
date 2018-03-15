@@ -1,0 +1,16 @@
+<% provide(:title, 'Matching users') %>
+<h1>Matched users</h1>
+<ul class="matching">
+  <% @matching_users.each do |user, tags| %>
+    <li>
+      <%= link_to gravatar_for(user, size: 50), user %>
+      <span class="user"><%= link_to user.name, user %></span>
+      <span class="content">
+        <%= "Common tags (#{tags.count}) : " %>
+        <% tags.each do |tag| %>
+          <%= link_to tag.name, matching_detail_path(user_id: user.id, tag_id: tag.id) %>
+        <% end %>
+      </span>
+    </li>
+  <% end %>
+</ul>
